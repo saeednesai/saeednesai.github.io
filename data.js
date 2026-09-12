@@ -277,15 +277,15 @@ const services = [
     },
     detail: {
       en: [
-        "I follow swarm intelligence and metaheuristic (evolutionary) algorithms, with a specific focus on bee-colony-based optimization. I've compared algorithm variants on benchmark functions and presented the results at an international conference (ICKIS 2014).",
+        "I follow swarm intelligence and metaheuristic (evolutionary) algorithms, with a specific focus on bee-colony-based optimization. I've compared algorithm variants on benchmark functions and presented the results at an international conference.",
         "I'm open to research collaboration or applied optimization problems — nonprofit cooperation is welcome, with copyright respected on both sides."
       ],
       fa: [
-        "هوش ازدحامی و الگوریتم‌های ابرابتکاری (تکاملی) را دنبال می‌کنم، با تمرکز ویژه بر بهینه‌سازی مبتنی بر کلونی زنبور عسل. نسخه‌های مختلف الگوریتم را روی توابع محک مقایسه کرده و نتایج را در یک کنفرانس بین‌المللی (ICKIS 2014) ارائه داده‌ام.",
+        "هوش ازدحامی و الگوریتم‌های ابرابتکاری (تکاملی) را دنبال می‌کنم، با تمرکز ویژه بر بهینه‌سازی مبتنی بر کلونی زنبور عسل. نسخه‌های مختلف الگوریتم را روی توابع محک مقایسه کرده و نتایج را در یک کنفرانس بین‌المللی ارائه داده‌ام.",
         "برای همکاری پژوهشی یا مسائل بهینه‌سازی کاربردی آماده‌ام — همکاری غیرانتفاعی هم با رعایت حق کپی‌رایت دو طرف پذیرفته می‌شود."
       ],
       pt: [
-        "Acompanho inteligência de enxame e algoritmos metaheurísticos (evolutivos), com foco específico em otimização baseada em colônias de abelhas. Já comparei variantes de algoritmos em funções de benchmark e apresentei os resultados em uma conferência internacional (ICKIS 2014).",
+        "Acompanho inteligência de enxame e algoritmos metaheurísticos (evolutivos), com foco específico em otimização baseada em colônias de abelhas. Já comparei variantes de algoritmos em funções de benchmark e apresentei os resultados em uma conferência internacional.",
         "Estou aberto a colaborações de pesquisa ou problemas aplicados de otimização — colaboração sem fins lucrativos é bem-vinda, respeitando os direitos autorais de ambas as partes."
       ]
     }
@@ -407,3 +407,122 @@ const projects = [
     }
   }
 ];
+
+/* ==========================================================
+   Cover art (inline SVG per category) — shared by index.html,
+   service-details.html and project-details.html so the same
+   item always renders the same artwork everywhere.
+   ========================================================== */
+function coverSVG(type){
+  const w = 400, h = 300;
+  const wrap = (inner) => `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice">
+    <rect width="${w}" height="${h}" fill="var(--surface-alt)"/>${inner}</svg>`;
+
+  switch(type){
+    case 'circuit':
+      return wrap(`
+        <g class="cover-a" fill="none" stroke-width="2">
+          <path d="M40 60 H160 V120 H260 V60 H360"/>
+          <path d="M40 220 H140 V160 H320 V220 H360"/>
+          <path d="M200 40 V260"/>
+        </g>
+        <g class="cover-a-fill">
+          <circle cx="40" cy="60" r="5"/><circle cx="160" cy="120" r="5"/><circle cx="260" cy="60" r="5"/>
+          <circle cx="360" cy="60" r="5"/><circle cx="140" cy="220" r="5"/><circle cx="320" cy="160" r="5"/>
+          <circle cx="360" cy="220" r="5"/>
+        </g>`);
+    case 'network':
+      return wrap(`
+        <g class="cover-b" fill="none" stroke-width="2">
+          <path d="M200 150 L90 90 M200 150 L310 90 M200 150 L90 210 M200 150 L310 210 M200 150 L200 60"/>
+        </g>
+        <g class="cover-b-fill">
+          <circle cx="200" cy="150" r="9"/>
+          <circle cx="90" cy="90" r="6"/><circle cx="310" cy="90" r="6"/>
+          <circle cx="90" cy="210" r="6"/><circle cx="310" cy="210" r="6"/><circle cx="200" cy="60" r="6"/>
+        </g>`);
+    case 'support':
+      return wrap(`
+        <g class="cover-a" fill="none" stroke-width="2">
+          <rect x="70" y="90" width="150" height="90" rx="16"/>
+          <rect x="180" y="140" width="150" height="90" rx="16"/>
+        </g>
+        <g class="cover-a-fill"><circle cx="115" cy="135" r="4"/><circle cx="145" cy="135" r="4"/><circle cx="175" cy="135" r="4"/></g>`);
+    case 'hex':
+      return wrap(hivePattern());
+    case 'hive':
+      return wrap(hivePattern());
+    case 'web':
+      return wrap(`
+        <g class="cover-a" fill="none" stroke-width="2">
+          <rect x="60" y="60" width="280" height="180" rx="10"/>
+          <path d="M60 100 H340"/>
+        </g>
+        <g class="cover-a-fill"><circle cx="82" cy="80" r="4"/><circle cx="100" cy="80" r="4"/><circle cx="118" cy="80" r="4"/></g>
+        <g class="cover-b" fill="none" stroke-width="2"><path d="M100 140 H300 M100 170 H260 M100 200 H280"/></g>`);
+    case 'calendar':
+      return wrap(`
+        <g class="cover-a" fill="none" stroke-width="2">
+          <rect x="80" y="70" width="240" height="180" rx="10"/>
+          <path d="M80 120 H320 M140 60 V90 M260 60 V90"/>
+        </g>
+        <g class="cover-b-fill"><rect x="190" y="150" width="40" height="40" rx="6"/></g>`);
+    case 'chart':
+      return wrap(`
+        <g class="cover-a-fill">
+          <rect x="90" y="170" width="34" height="70"/>
+          <rect x="150" y="130" width="34" height="110"/>
+          <rect x="210" y="90" width="34" height="150"/>
+          <rect x="270" y="150" width="34" height="90"/>
+        </g>
+        <path class="cover-b" fill="none" stroke-width="2" d="M90 150 L167 110 L227 130 L287 70"/>`);
+    case 'shield':
+      return wrap(`
+        <g class="cover-a" fill="none" stroke-width="2">
+          <path d="M200 60 L300 95 V150 C300 200 260 230 200 245 C140 230 100 200 100 150 V95 Z"/>
+        </g>
+        <path class="cover-b" fill="none" stroke-width="3" d="M165 150 L190 175 L240 120"/>`);
+    case 'sliders':
+      return wrap(`
+        <g class="cover-a" stroke-width="2">
+          <line x1="80" y1="100" x2="320" y2="100"/>
+          <line x1="80" y1="150" x2="320" y2="150"/>
+          <line x1="80" y1="200" x2="320" y2="200"/>
+        </g>
+        <g class="cover-b-fill">
+          <circle cx="150" cy="100" r="10"/><circle cx="250" cy="150" r="10"/><circle cx="190" cy="200" r="10"/>
+        </g>`);
+    case 'extract':
+      return wrap(`
+        <g class="cover-a" fill="none" stroke-width="2">
+          <rect x="60" y="100" width="90" height="100" rx="8"/>
+          <rect x="250" y="100" width="90" height="100" rx="8"/>
+        </g>
+        <g class="cover-b" stroke-width="2"><path d="M155 150 H245" stroke-dasharray="6 6"/></g>
+        <g class="cover-b-fill"><path d="M230 140 L250 150 L230 160 Z"/></g>`);
+    default:
+      return wrap(swarmDots());
+  }
+}
+function hivePattern(){
+  const cx=200, cy=150, r=42;
+  const centers = [[0,0],[1.5*r,0.87*r],[1.5*r,-0.87*r],[-1.5*r,0.87*r],[-1.5*r,-0.87*r],[0,1.74*r],[0,-1.74*r]];
+  return centers.map(([dx,dy],i)=>{
+    const x=cx+dx, y=cy+dy;
+    const pts=[0,60,120,180,240,300].map(a=>{
+      const rad=Math.PI/180*a;
+      return `${x+r*Math.cos(rad)},${y+r*Math.sin(rad)}`;
+    }).join(' ');
+    return `<polygon points="${pts}" class="${i===0?'cover-b':'cover-a'}" fill="none" stroke-width="2"/>`;
+  }).join('');
+}
+function swarmDots(){
+  let out = '';
+  for(let i=0;i<24;i++){
+    const x = 40 + Math.random()*320;
+    const y = 40 + Math.random()*220;
+    const r = 3 + Math.random()*4;
+    out += `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(1)}" class="cover-a-fill" opacity="${(0.4+Math.random()*0.6).toFixed(2)}"/>`;
+  }
+  return out;
+}
