@@ -7,7 +7,7 @@
   if (!header || !hero || !('IntersectionObserver' in window)) return;
   const observer = new IntersectionObserver(([entry]) => {
     header.classList.toggle('is-pinned', !entry.isIntersecting);
-  }, { threshold: 0, rootMargin: '-64px 0px 0px 0px' });
+  }, { threshold: 0, rootMargin: '-65px 0px 0px 0px' });
   observer.observe(hero);
 })();
 
