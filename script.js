@@ -1,14 +1,34 @@
 /* ==========================================================
-   Header: hidden over the hero, appears from About onward
+   Header: hidden over the hero, appears from About onward.
+   Uses a scroll-position check with a buffer zone (hysteresis)
+   instead of a naive intersection check, so the pin/unpin
+   state doesn't flicker when the hero's edge sits near the
+   viewport boundary.
    ========================================================== */
 (function headerVisibility(){
   const header = document.querySelector('.site-header');
   const hero = document.getElementById('top');
-  if (!header || !hero || !('IntersectionObserver' in window)) return;
-  const observer = new IntersectionObserver(([entry]) => {
-    header.classList.toggle('is-pinned', !entry.isIntersecting);
-  }, { threshold: 0, rootMargin: '-64px 0px 0px 0px' });
-  observer.observe(hero);
+  if (!header || !hero) return;
+
+  const BUFFER = 48; // px of dead zone around the boundary
+  let ticking = false;
+
+  function update(){
+    const heroBottom = hero.getBoundingClientRect().bottom;
+    if (heroBottom <= -BUFFER) {
+      header.classList.add('is-pinned');
+    } else if (heroBottom >= BUFFER) {
+      header.classList.remove('is-pinned');
+    }
+    // inside the buffer zone: leave the current state as-is
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
 })();
 
 /* ==========================================================
